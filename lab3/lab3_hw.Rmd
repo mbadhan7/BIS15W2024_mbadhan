@@ -106,6 +106,19 @@ max(sleep$sleep_total)
 filter(sleep, sleep_total==19.9)
 ```
 
+```{r}
+max(x)
+```
+
+
+```{r}
+which(sleep$sleep_total == 19.9, arr.ind=TRUE)
+```
+
+```{r}
+sleep[43,1]
+```
+
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
