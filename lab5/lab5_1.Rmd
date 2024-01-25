@@ -18,6 +18,7 @@ output:
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
+library("janitor")
 ```
 
 ## Load the data
@@ -40,8 +41,13 @@ mammals <- rename(mammals, genus="Genus", wean_mass="wean mass", max_life= "max.
 
 Do you remember the easier way?
 ```{r}
-
+mammals <- clean_names(mammals)
 ```
+
+```{r}
+names(mammals)
+```
+
 
 ## Review
 In the warm-up, we practiced extracting observations of interest. For example, we can pull out all of the fish from a specific lake.  
@@ -57,7 +63,7 @@ levels(fish$lakeid)
 
 Now we can pull out any state of interest.  
 ```{r}
-
+filter(fish, lakeid=="LJ")
 ```
 
 ## Using `filter()` on multiple conditions
@@ -85,16 +91,17 @@ filter(fish, length > 400, (scalelength > 11 | radii_length_mm > 8))
 ## Practice  
 1.  From the `mammals` data, filter all members of the family Bovidae with a mass greater than 450000.
 ```{r}
-
+bovidae <- filter(mammals, family== "Bovidae" & mass > 450000)
 ```
 
 2. From the `mammals` data, build a data frame that compares `mass`, `gestation`, and `newborn` among the primate genera `Lophocebus`, `Erythrocebus`, and `Macaca`. Among these genera, which species has the smallest `newborn` mass?
 ```{r}
-
+mammals2 <- select(mammals, "order", "genus", "mass", "gestation", "newborn")
+mammals3 <- filter(mammals, order=="Primates")
 ```
 
 ```{r}
-
+mammals4 <- filter(mammals3, genus %in% c("Lophocebus", "Erythrocebus", "Macaca"))
 ```
 
 ## That's it! Let's take a break and then move on to part 2!  
