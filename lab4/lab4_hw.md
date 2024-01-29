@@ -1,7 +1,7 @@
 ---
 title: "Lab 4 Homework"
 author: "Please Add Your Name Here"
-date: "2024-01-24"
+date: "2024-01-28"
 output:
   html_document: 
     theme: spacelab
@@ -174,324 +174,40 @@ summary(homerange)
 **3. Change the class of the variables `taxon` and `order` to factors and display their levels.**  
 
 ```r
-factor(homerange$taxon)
+homerange$taxon <- as.factor(homerange$taxon)
+levels(homerange$taxon)
 ```
 
 ```
-##   [1] lake fishes   river fishes  river fishes  river fishes  river fishes 
-##   [6] river fishes  marine fishes marine fishes marine fishes marine fishes
-##  [11] marine fishes marine fishes marine fishes lake fishes   lake fishes  
-##  [16] lake fishes   river fishes  river fishes  lake fishes   lake fishes  
-##  [21] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [26] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [31] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [36] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [41] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [46] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [51] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [56] marine fishes marine fishes marine fishes marine fishes lake fishes  
-##  [61] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [66] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [71] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [76] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [81] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [86] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [91] marine fishes marine fishes marine fishes marine fishes marine fishes
-##  [96] marine fishes river fishes  river fishes  river fishes  river fishes 
-## [101] lake fishes   river fishes  river fishes  river fishes  marine fishes
-## [106] marine fishes marine fishes marine fishes marine fishes lake fishes  
-## [111] marine fishes marine fishes marine fishes birds         birds        
-## [116] birds         birds         birds         birds         birds        
-## [121] birds         birds         birds         birds         birds        
-## [126] birds         birds         birds         birds         birds        
-## [131] birds         birds         birds         birds         birds        
-## [136] birds         birds         birds         birds         birds        
-## [141] birds         birds         birds         birds         birds        
-## [146] birds         birds         birds         birds         birds        
-## [151] birds         birds         birds         birds         birds        
-## [156] birds         birds         birds         birds         birds        
-## [161] birds         birds         birds         birds         birds        
-## [166] birds         birds         birds         birds         birds        
-## [171] birds         birds         birds         birds         birds        
-## [176] birds         birds         birds         birds         birds        
-## [181] birds         birds         birds         birds         birds        
-## [186] birds         birds         birds         birds         birds        
-## [191] birds         birds         birds         birds         birds        
-## [196] birds         birds         birds         birds         birds        
-## [201] birds         birds         birds         birds         birds        
-## [206] birds         birds         birds         birds         birds        
-## [211] birds         birds         birds         birds         birds        
-## [216] birds         birds         birds         birds         birds        
-## [221] birds         birds         birds         birds         birds        
-## [226] birds         birds         birds         birds         birds        
-## [231] birds         birds         birds         birds         birds        
-## [236] birds         birds         birds         birds         birds        
-## [241] birds         birds         birds         birds         birds        
-## [246] birds         birds         birds         birds         birds        
-## [251] birds         birds         birds         mammals       mammals      
-## [256] mammals       mammals       mammals       mammals       mammals      
-## [261] mammals       mammals       mammals       mammals       mammals      
-## [266] mammals       mammals       mammals       mammals       mammals      
-## [271] mammals       mammals       mammals       mammals       mammals      
-## [276] mammals       mammals       mammals       mammals       mammals      
-## [281] mammals       mammals       mammals       mammals       mammals      
-## [286] mammals       mammals       mammals       mammals       mammals      
-## [291] mammals       mammals       mammals       mammals       mammals      
-## [296] mammals       mammals       mammals       mammals       mammals      
-## [301] mammals       mammals       mammals       mammals       mammals      
-## [306] mammals       mammals       mammals       mammals       mammals      
-## [311] mammals       mammals       mammals       mammals       mammals      
-## [316] mammals       mammals       mammals       mammals       mammals      
-## [321] mammals       mammals       mammals       mammals       mammals      
-## [326] mammals       mammals       mammals       mammals       mammals      
-## [331] mammals       mammals       mammals       mammals       mammals      
-## [336] mammals       mammals       mammals       mammals       mammals      
-## [341] mammals       mammals       mammals       mammals       mammals      
-## [346] mammals       mammals       mammals       mammals       mammals      
-## [351] mammals       mammals       mammals       mammals       mammals      
-## [356] mammals       mammals       mammals       mammals       mammals      
-## [361] mammals       mammals       mammals       mammals       mammals      
-## [366] mammals       mammals       mammals       mammals       mammals      
-## [371] mammals       mammals       mammals       mammals       mammals      
-## [376] mammals       mammals       mammals       mammals       mammals      
-## [381] mammals       mammals       mammals       mammals       mammals      
-## [386] mammals       mammals       mammals       mammals       mammals      
-## [391] mammals       mammals       mammals       mammals       mammals      
-## [396] mammals       mammals       mammals       mammals       mammals      
-## [401] mammals       mammals       mammals       mammals       mammals      
-## [406] mammals       mammals       mammals       mammals       mammals      
-## [411] mammals       mammals       mammals       mammals       mammals      
-## [416] mammals       mammals       mammals       mammals       mammals      
-## [421] mammals       mammals       mammals       mammals       mammals      
-## [426] mammals       mammals       mammals       mammals       mammals      
-## [431] mammals       mammals       mammals       mammals       mammals      
-## [436] mammals       mammals       mammals       mammals       mammals      
-## [441] mammals       mammals       mammals       mammals       mammals      
-## [446] mammals       mammals       mammals       mammals       mammals      
-## [451] mammals       mammals       mammals       mammals       mammals      
-## [456] mammals       mammals       mammals       mammals       mammals      
-## [461] mammals       mammals       mammals       mammals       mammals      
-## [466] mammals       mammals       mammals       mammals       mammals      
-## [471] mammals       mammals       mammals       mammals       mammals      
-## [476] mammals       mammals       mammals       mammals       mammals      
-## [481] mammals       mammals       mammals       mammals       mammals      
-## [486] mammals       mammals       mammals       mammals       mammals      
-## [491] mammals       lizards       snakes        snakes        snakes       
-## [496] snakes        snakes        snakes        snakes        snakes       
-## [501] snakes        snakes        snakes        snakes        snakes       
-## [506] snakes        snakes        snakes        snakes        snakes       
-## [511] snakes        snakes        snakes        snakes        snakes       
-## [516] snakes        snakes        lizards       lizards       lizards      
-## [521] lizards       lizards       lizards       lizards       lizards      
-## [526] lizards       snakes        lizards       snakes        snakes       
-## [531] snakes        snakes        snakes        snakes        snakes       
-## [536] snakes        snakes        snakes        snakes        snakes       
-## [541] snakes        snakes        snakes        turtles       turtles      
-## [546] turtles       turtles       turtles       turtles       turtles      
-## [551] turtles       turtles       turtles       turtles       turtles      
-## [556] turtles       tortoises     tortoises     tortoises     tortoises    
-## [561] tortoises     tortoises     tortoises     tortoises     tortoises    
-## [566] tortoises     tortoises     tortoises     turtles      
-## 9 Levels: birds lake fishes lizards mammals marine fishes ... turtles
+## [1] "birds"         "lake fishes"   "lizards"       "mammals"      
+## [5] "marine fishes" "river fishes"  "snakes"        "tortoises"    
+## [9] "turtles"
 ```
 
 
 ```r
-factor(homerange$order)
+homerange$order <- as.factor(homerange$order)
+levels(homerange$order)
 ```
 
 ```
-##   [1] anguilliformes        cypriniformes         cypriniformes        
-##   [4] cypriniformes         cypriniformes         esociformes          
-##   [7] gadiformes            gadiformes            perciformes          
-##  [10] perciformes           perciformes           perciformes          
-##  [13] perciformes           perciformes           perciformes          
-##  [16] perciformes           perciformes           perciformes          
-##  [19] perciformes           perciformes           perciformes          
-##  [22] perciformes           perciformes           perciformes          
-##  [25] perciformes           perciformes           perciformes          
-##  [28] perciformes           perciformes           perciformes          
-##  [31] perciformes           perciformes           perciformes          
-##  [34] perciformes           perciformes           perciformes          
-##  [37] perciformes           perciformes           perciformes          
-##  [40] perciformes           perciformes           perciformes          
-##  [43] perciformes           perciformes           perciformes          
-##  [46] perciformes           perciformes           perciformes          
-##  [49] perciformes           perciformes           perciformes          
-##  [52] perciformes           perciformes           perciformes          
-##  [55] perciformes           perciformes           perciformes          
-##  [58] perciformes           perciformes           perciformes          
-##  [61] perciformes           perciformes           perciformes          
-##  [64] perciformes           perciformes           perciformes          
-##  [67] perciformes           perciformes           perciformes          
-##  [70] perciformes           perciformes           perciformes          
-##  [73] perciformes           perciformes           perciformes          
-##  [76] perciformes           perciformes           perciformes          
-##  [79] perciformes           perciformes           perciformes          
-##  [82] perciformes           perciformes           perciformes          
-##  [85] perciformes           perciformes           perciformes          
-##  [88] perciformes           perciformes           perciformes          
-##  [91] perciformes           perciformes           perciformes          
-##  [94] perciformes           perciformes           perciformes          
-##  [97] salmoniformes         salmoniformes         salmoniformes        
-## [100] salmoniformes         salmoniformes         scorpaeniformes      
-## [103] scorpaeniformes       scorpaeniformes       scorpaeniformes      
-## [106] scorpaeniformes       scorpaeniformes       scorpaeniformes      
-## [109] scorpaeniformes       siluriformes          syngnathiformes      
-## [112] syngnathiformes       tetraodontiformes\xa0 accipitriformes      
-## [115] accipitriformes       accipitriformes       accipitriformes      
-## [118] accipitriformes       accipitriformes       anseriformes         
-## [121] apterygiformes        caprimulgiformes      charadriiformes      
-## [124] columbidormes         columbiformes         columbiformes        
-## [127] coraciiformes         coraciiformes         cuculiformes         
-## [130] cuculiformes          cuculiformes          cuculiformes         
-## [133] falconiformes         falconiformes         falconiformes        
-## [136] falconiformes         falconiformes         falconiformes        
-## [139] falconiformes         falconiformes         falconiformes        
-## [142] falconiformes         falconiformes         falconiformes        
-## [145] falconiformes         falconiformes         falconiformes        
-## [148] falconiformes         falconiformes         galliformes          
-## [151] galliformes           galliformes           galliformes          
-## [154] galliformes           galliformes           galliformes          
-## [157] galliformes           gruiformes            gruiformes           
-## [160] gruiformes            passeriformes         passeriformes        
-## [163] passeriformes         passeriformes         passeriformes        
-## [166] passeriformes         passeriformes         passeriformes        
-## [169] passeriformes         passeriformes         passeriformes        
-## [172] passeriformes         passeriformes         passeriformes        
-## [175] passeriformes         passeriformes         passeriformes        
-## [178] passeriformes         passeriformes         passeriformes        
-## [181] passeriformes         passeriformes         passeriformes        
-## [184] passeriformes         passeriformes         passeriformes        
-## [187] passeriformes         passeriformes         passeriformes        
-## [190] passeriformes         passeriformes         passeriformes        
-## [193] passeriformes         passeriformes         passeriformes        
-## [196] passeriformes         passeriformes         passeriformes        
-## [199] passeriformes         passeriformes         passeriformes        
-## [202] passeriformes         passeriformes         passeriformes        
-## [205] passeriformes         passeriformes         passeriformes        
-## [208] passeriformes         passeriformes         passeriformes        
-## [211] passeriformes         passeriformes         passeriformes        
-## [214] passeriformes         passeriformes         passeriformes        
-## [217] passeriformes         passeriformes         passeriformes        
-## [220] passeriformes         passeriformes         passeriformes        
-## [223] passeriformes         passeriformes         passeriformes        
-## [226] passeriformes         passeriformes         passeriformes        
-## [229] passeriformes         passeriformes         pelecaniformes       
-## [232] pelecaniformes        piciformes            piciformes           
-## [235] piciformes            piciformes            piciformes           
-## [238] piciformes            piciformes            psittaciformes       
-## [241] rheiformes            rheiformes            strigiformes         
-## [244] strigiformes          strigiformes          strigiformes         
-## [247] strigiformes          strigiformes          strigiformes         
-## [250] strigiformes          strigiformes          struthioniformes     
-## [253] tinamiformes          afrosoricida          afrosoricida         
-## [256] artiodactyla          artiodactyla          artiodactyla         
-## [259] artiodactyla          artiodactyla          artiodactyla         
-## [262] artiodactyla          artiodactyla          artiodactyla         
-## [265] artiodactyla          artiodactyla          artiodactyla         
-## [268] artiodactyla          artiodactyla          artiodactyla         
-## [271] artiodactyla          artiodactyla          artiodactyla         
-## [274] artiodactyla          artiodactyla          artiodactyla         
-## [277] artiodactyla          artiodactyla          artiodactyla         
-## [280] artiodactyla          artiodactyla          artiodactyla         
-## [283] artiodactyla          artiodactyla          artiodactyla         
-## [286] artiodactyla          artiodactyla          artiodactyla         
-## [289] artiodactyla          artiodactyla          artiodactyla         
-## [292] artiodactyla          artiodactyla          artiodactyla         
-## [295] carnivora             carnivora             carnivora            
-## [298] carnivora             carnivora             carnivora            
-## [301] carnivora             carnivora             carnivora            
-## [304] carnivora             carnivora             carnivora            
-## [307] carnivora             carnivora             carnivora            
-## [310] carnivora             carnivora             carnivora            
-## [313] carnivora             carnivora             carnivora            
-## [316] carnivora             carnivora             carnivora            
-## [319] carnivora             carnivora             carnivora            
-## [322] carnivora             carnivora             carnivora            
-## [325] carnivora             carnivora             carnivora            
-## [328] carnivora             carnivora             carnivora            
-## [331] carnivora             carnivora             carnivora            
-## [334] carnivora             carnivora             carnivora            
-## [337] carnivora             carnivora             carnivora            
-## [340] carnivora             carnivora             carnivora            
-## [343] carnivora             carnivora             carnivora            
-## [346] carnivora             carnivora             carnivora            
-## [349] carnivora             carnivora             dasyuromorpha        
-## [352] dasyuromorpha         dasyuromorpha         dasyuromorpia        
-## [355] didelphimorphia       didelphimorphia       diprodontia          
-## [358] diprodontia           diprodontia           diprodontia          
-## [361] diprodontia           diprodontia           diprodontia          
-## [364] diprodontia           diprodontia           diprodontia          
-## [367] diprodontia           diprodontia           diprotodontia        
-## [370] diprotodontia         diprotodontia         diprotodontia        
-## [373] diprotodontia         diprotodontia         diprotodontia        
-## [376] erinaceomorpha        erinaceomorpha        lagomorpha           
-## [379] lagomorpha            lagomorpha            lagomorpha           
-## [382] lagomorpha            lagomorpha            lagomorpha           
-## [385] lagomorpha            lagomorpha            lagomorpha           
-## [388] lagomorpha            lagomorpha            lagomorpha           
-## [391] lagomorpha            macroscelidea         macroscelidea        
-## [394] macroscelidea         monotrematae          peramelemorphia      
-## [397] peramelemorphia       perissodactyla        perissodactyla       
-## [400] perissodactyla        pilosa                proboscidea          
-## [403] proboscidea           roden                 rodentia             
-## [406] rodentia              rodentia              rodentia             
-## [409] rodentia              rodentia              rodentia             
-## [412] rodentia              rodentia              rodentia             
-## [415] rodentia              rodentia              rodentia             
-## [418] rodentia              rodentia              rodentia             
-## [421] rodentia              rodentia              rodentia             
-## [424] rodentia              rodentia              rodentia             
-## [427] rodentia              rodentia              rodentia             
-## [430] rodentia              rodentia              rodentia             
-## [433] rodentia              rodentia              rodentia             
-## [436] rodentia              rodentia              rodentia             
-## [439] rodentia              rodentia              rodentia             
-## [442] rodentia              rodentia              rodentia             
-## [445] rodentia              rodentia              rodentia             
-## [448] rodentia              rodentia              rodentia             
-## [451] rodentia              rodentia              rodentia             
-## [454] rodentia              rodentia              rodentia             
-## [457] rodentia              rodentia              rodentia             
-## [460] rodentia              rodentia              rodentia             
-## [463] rodentia              rodentia              rodentia             
-## [466] rodentia              rodentia              rodentia             
-## [469] rodentia              rodentia              rodentia             
-## [472] rodentia              rodentia              rodentia             
-## [475] rodentia              rodentia              rodentia             
-## [478] rodentia              rodentia              rodentia             
-## [481] rodentia              soricomorpha          soricomorpha         
-## [484] soricomorpha          soricomorpha          soricomorpha         
-## [487] soricomorpha          soricomorpha          soricomorpha         
-## [490] soricomorpha          soricomorpha          squamata             
-## [493] squamata              squamata              squamata             
-## [496] squamata              squamata              squamata             
-## [499] squamata              squamata              squamata             
-## [502] squamata              squamata              squamata             
-## [505] squamata              squamata              squamata             
-## [508] squamata              squamata              squamata             
-## [511] squamata              squamata              squamata             
-## [514] squamata              squamata              squamata             
-## [517] squamata              squamata              squamata             
-## [520] squamata              squamata              squamata             
-## [523] squamata              squamata              squamata             
-## [526] squamata              squamata              squamata             
-## [529] squamata              squamata              squamata             
-## [532] squamata              squamata              squamata             
-## [535] squamata              squamata              squamata             
-## [538] squamata              squamata              squamata             
-## [541] squamata              squamata              squamata             
-## [544] testudines            testudines            testudines           
-## [547] testudines            testudines            testudines           
-## [550] testudines            testudines            testudines           
-## [553] testudines            testudines            testudines           
-## [556] testudines            testudines            testudines           
-## [559] testudines            testudines            testudines           
-## [562] testudines            testudines            testudines           
-## [565] testudines            testudines            testudines           
-## [568] testudines            testudines           
-## 51 Levels: accipitriformes afrosoricida anguilliformes ... tinamiformes
+##  [1] "accipitriformes"       "afrosoricida"          "anguilliformes"       
+##  [4] "anseriformes"          "apterygiformes"        "artiodactyla"         
+##  [7] "caprimulgiformes"      "carnivora"             "charadriiformes"      
+## [10] "columbidormes"         "columbiformes"         "coraciiformes"        
+## [13] "cuculiformes"          "cypriniformes"         "dasyuromorpha"        
+## [16] "dasyuromorpia"         "didelphimorphia"       "diprodontia"          
+## [19] "diprotodontia"         "erinaceomorpha"        "esociformes"          
+## [22] "falconiformes"         "gadiformes"            "galliformes"          
+## [25] "gruiformes"            "lagomorpha"            "macroscelidea"        
+## [28] "monotrematae"          "passeriformes"         "pelecaniformes"       
+## [31] "peramelemorphia"       "perciformes"           "perissodactyla"       
+## [34] "piciformes"            "pilosa"                "proboscidea"          
+## [37] "psittaciformes"        "rheiformes"            "roden"                
+## [40] "rodentia"              "salmoniformes"         "scorpaeniformes"      
+## [43] "siluriformes"          "soricomorpha"          "squamata"             
+## [46] "strigiformes"          "struthioniformes"      "syngnathiformes"      
+## [49] "testudines"            "tetraodontiformes\xa0" "tinamiformes"
 ```
 
 
@@ -532,18 +248,80 @@ count(homerange, trophic.guild)
 **7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.**  
 
 
+```r
+carn <- filter(homerange, trophic.guild == "carnivore")
+```
+
+
+```r
+herb <- filter(homerange, trophic.guild == "herbivore")
+```
 
 
 **8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**  
 
+```r
+mean(carn$mean.hra.m2, na.rm = T) 
+```
+
+```
+## [1] 13039918
+```
 
 
+```r
+mean(herb$mean.hra.m2, na.rm = T)
+```
+
+```
+## [1] 34137012
+```
+
+Herbivores have on average a larger mean.hra.m2
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
 
 
+```r
+owls <- homerange %>%
+  filter(order=="strigiformes")
+```
+
+The smallest owl is Eurasian pygmy owl. The common name is Eurasian pygmy owl with a mean mass of 61.32. 
+
+https://ebird.org/species/eupowl1
+
+
+
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
 
+```r
+homerange %>%
+  filter(class=="aves") %>%
+  select(common.name, class, genus, species, mean.hra.m2) %>%
+  arrange(desc(mean.hra.m2))
+```
+
+```
+## # A tibble: 140 × 5
+##    common.name            class genus        species      mean.hra.m2
+##    <chr>                  <chr> <chr>        <chr>              <dbl>
+##  1 caracara               aves  caracara     cheriway       241000000
+##  2 Montagu's harrier      aves  circus       pygargus       200980000
+##  3 peregrine falcon       aves  falco        peregrinus     153860000
+##  4 booted eagle           aves  hieraaetus   pennatus       117300000
+##  5 ostrich                aves  struthio     camelus         84300000
+##  6 short-toed snake eagle aves  circaetus    gallicus        78500000
+##  7 European turtle dove   aves  streptopelia turtur          63585000
+##  8 Egyptian vulture       aves  neophron     percnopterus    63570000
+##  9 common buzzard         aves  buteo        buteo           50240000
+## 10 lanner falcon          aves  falco        biarmicus       50000000
+## # ℹ 130 more rows
+```
+
+The cheriway has the largest homerange (Caracara is the common name). It is referred to as the Mexican eagle and is actually a falcon. 
+
+https://www.allaboutbirds.org/guide/Crested_Caracara/overview#
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   

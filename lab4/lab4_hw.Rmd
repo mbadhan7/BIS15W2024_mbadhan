@@ -101,19 +101,29 @@ mean(herb$mean.hra.m2, na.rm = T)
 Herbivores have on average a larger mean.hra.m2
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
-```{r}
-owls <- select(homerange, "mean.mass.g","log10.mass", "genus", "family", "species")
-```
 
 ```{r}
-owl <- select(homerange, contains("owl"))
+owls <- homerange %>%
+  filter(order=="strigiformes")
 ```
+
+The smallest owl is Eurasian pygmy owl. The common name is Eurasian pygmy owl with a mean mass of 61.32. 
+
+https://ebird.org/species/eupowl1
+
 
 
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
 ```{r}
-
+homerange %>%
+  filter(class=="aves") %>%
+  select(common.name, class, genus, species, mean.hra.m2) %>%
+  arrange(desc(mean.hra.m2))
 ```
+
+The cheriway has the largest homerange (Caracara is the common name). It is referred to as the Mexican eagle and is actually a falcon. 
+
+https://www.allaboutbirds.org/guide/Crested_Caracara/overview#
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
