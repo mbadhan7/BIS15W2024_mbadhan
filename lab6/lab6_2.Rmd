@@ -2,10 +2,11 @@
 title: "dplyr Superhero"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
-    toc: yes
-    toc_float: yes
+    toc: true
+    toc_float: true
+    keep_md: true
 ---
 
 ## Learning Goals  
@@ -67,18 +68,12 @@ info %>%
 
 ## Not Human
 4. List all of the superheros that are not human.
-```{r}
-info %>%
-  select(name, race) %>%
-  filter(race == "Human")
-```
 
 ```{r}
 superhero_info %>%
   select(name, race) %>%
   filter(race != "Human") 
 ```
-
 
 
 ## Good and Evil
@@ -110,25 +105,80 @@ filter(good_guys, race == "Vampire")
 
 8. Among the bad guys, who are the male humans over 200 inches in height?
 
-
+```{r}
+filter(bad_guys, height > 200) 
+```
 
 9. Are there more good guys or bad guys with green hair?  
 
-10. Let's explore who the really small superheros are. In the `superhero_info` data, which have a weight less than 50? Be sure to sort your results by weight lowest to highest.  
+There is an equal number of good guys and bad guys with green hair.
+
+```{r}
+filter(good_guys, hair_color == "Green") 
+```
+
+```{r}
+filter(good_guys, hair_color == "Green") 
+```
+
+
+10. Let's explore who the really small superheros are. In the `superhero_info` data, which have a weight less than 50? Be sure to sort your results by weight lowest to highest. 
+
+```{r}
+superhero_info %>%
+  select(name, weight) %>%
+  filter(weight < 50) %>%
+  arrange(weight)
+```
+
 
 11. Let's make a new variable that is the ratio of height to weight. Call this variable `height_weight_ratio`.    
 
+```{r}
+superhero_info %>% 
+  mutate(height_weight_ratio = height/weight) 
+```
+
+
 12. Who has the highest height to weight ratio?  
+
+```{r}
+superhero_info %>% 
+  mutate(height_weight_ratio = height/weight) %>%
+  summary(height_weight_ratio)
+```
+
+```{r}
+superhero_info %>% 
+  mutate(height_weight_ratio = height/weight) %>%
+  filter(height_weight_ratio == 175.25)
+```
+
 
 ## `superhero_powers`
 Have a quick look at the `superhero_powers` data frame.  
 
 13. How many superheros have a combination of agility, stealth, super_strength, stamina?
 
+```{r}
+superhero_powers %>%
+  select(hero_names, agility, stealth, super_strength, stamina) %>%
+  summary(superhero_powers)
+```
+
 ## Your Favorite
 14. Pick your favorite superhero and let's see their powers!  
+```{r}
+superhero_powers[62,]
+```
+
 
 15. Can you find your hero in the superhero_info data? Show their info!  
+
+```{r}
+superhero_info[69,]
+```
+
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  
