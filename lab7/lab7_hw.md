@@ -1,11 +1,11 @@
 ---
 title: "Lab 7 Homework"
 author: "Mohit Badhan"
-date: "2024-02-01"
+date: "2024-02-06"
 output:
   html_document: 
     theme: spacelab
-    keep_md: yes
+    keep_md: true
 ---
 
 
@@ -24,6 +24,15 @@ library(skimr)
 ```
 
 For this assignment we are going to work with a large data set from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries. These data are pretty wild, so we need to do some cleaning. First, load the data.  
+
+
+```r
+getwd()
+```
+
+```
+## [1] "/Users/mohittyy/Desktop/BIS15W2024_mbadhan/lab7"
+```
 
 Load the data `FAO_1950to2012_111914.csv` as a new object titled `fisheries`.
 
@@ -587,16 +596,134 @@ fisheries_tidy %>%
 
 7. Which country caught the most sardines (_Sardina pilchardus_) between the years 1990-2000?
 
+```r
+fisheries_tidy %>%
+  filter(between(year, 1990, 2000) & asfis_species_name == "Sardina pilchardus") %>%
+  group_by(country) %>%
+  summarize(sardines_caught=sum(catch, na.rm=T), n=n()) %>%
+  arrange(desc(sardines_caught))
+```
 
+```
+## # A tibble: 37 × 3
+##    country               sardines_caught     n
+##    <chr>                           <dbl> <int>
+##  1 Morocco                          7470    22
+##  2 Spain                            3507    33
+##  3 Russian Federation               1639    11
+##  4 Ukraine                          1030    11
+##  5 France                            966    25
+##  6 Portugal                          818    22
+##  7 Greece                            528    11
+##  8 Italy                             507    11
+##  9 Serbia and Montenegro             478     9
+## 10 Denmark                           477    11
+## # ℹ 27 more rows
+```
+Morocco caught the most sardines  between the years 1990-2000
 
 
 8. Which five countries caught the most cephalopods between 2008-2012?
 
+```r
+fisheries_tidy %>%
+  filter(between(year, 2008, 2012) & asfis_species_name == "Cephalopoda") %>%
+  group_by(country) %>%
+  summarize(cephalopods_caught=sum(catch, na.rm=T), n=n()) %>%
+  arrange(desc(cephalopods_caught))
+```
+
+```
+## # A tibble: 16 × 3
+##    country                  cephalopods_caught     n
+##    <chr>                                 <dbl> <int>
+##  1 India                                   570    10
+##  2 China                                   257     5
+##  3 Spain                                   198    10
+##  4 Algeria                                 162     5
+##  5 France                                  101     7
+##  6 Mauritania                               90     5
+##  7 TimorLeste                               76     5
+##  8 Italy                                    66     1
+##  9 Mozambique                               16     5
+## 10 Cambodia                                 15     5
+## 11 Taiwan Province of China                 13     3
+## 12 Madagascar                               11     5
+## 13 Croatia                                   7     3
+## 14 Israel                                    0     1
+## 15 Somalia                                   0     5
+## 16 Viet Nam                                  0     5
+```
+
+India, China, Spain, Algeria, France
 
 9. Which species had the highest catch total between 2008-2012? (hint: Osteichthyes is not a species)
 
+```r
+fisheries_tidy %>%
+  filter(between(year, 2008, 2012)) %>%
+  group_by(asfis_species_name, isscaap_taxonomic_group, common_name) %>%
+  summarize(species_caught=sum(catch, na.rm=T), n=n()) %>%
+  arrange(desc(species_caught))
+```
+
+```
+## `summarise()` has grouped output by 'asfis_species_name',
+## 'isscaap_taxonomic_group'. You can override using the `.groups` argument.
+```
+
+```
+## # A tibble: 1,477 × 5
+## # Groups:   asfis_species_name, isscaap_taxonomic_group [1,474]
+##    asfis_species_name    isscaap_taxonomic_gr…¹ common_name species_caught     n
+##    <chr>                 <chr>                  <chr>                <dbl> <int>
+##  1 Osteichthyes          Marine fishes not ide… Marine fis…         105651  1330
+##  2 Theragra chalcogramma Cods, hakes, haddocks  Alaska pol…          41075    35
+##  3 Engraulis ringens     Herrings, sardines, a… Anchoveta(…          35523    14
+##  4 Katsuwonus pelamis    Tunas, bonitos, billf… Skipjack t…          32153   761
+##  5 Trichiurus lepturus   Miscellaneous demersa… Largehead …          30400   225
+##  6 Clupea harengus       Herrings, sardines, a… Atlantic h…          28527   115
+##  7 Thunnus albacares     Tunas, bonitos, billf… Yellowfin …          20119  1006
+##  8 Scomber japonicus     Miscellaneous pelagic… Chub macke…          14723   351
+##  9 Gadus morhua          Cods, hakes, haddocks  Atlantic c…          13253   176
+## 10 Thunnus alalunga      Tunas, bonitos, billf… Albacore             12019   755
+## # ℹ 1,467 more rows
+## # ℹ abbreviated name: ¹​isscaap_taxonomic_group
+```
 
 10. Use the data to do at least one analysis of your choice.
+
+
+```r
+fisheries_tidy %>%
+  filter(between(year, 2000, 2012)) %>%
+  group_by(country, isscaap_taxonomic_group, common_name) %>%
+  summarize(species_caught=sum(catch, na.rm=T), n=n()) %>%
+  arrange(species_caught)
+```
+
+```
+## `summarise()` has grouped output by 'country', 'isscaap_taxonomic_group'. You
+## can override using the `.groups` argument.
+```
+
+```
+## # A tibble: 10,444 × 5
+## # Groups:   country, isscaap_taxonomic_group [2,330]
+##    country isscaap_taxonomic_group         common_name      species_caught     n
+##    <chr>   <chr>                           <chr>                     <dbl> <int>
+##  1 Albania Cods, hakes, haddocks           European hake                 0    13
+##  2 Algeria Cods, hakes, haddocks           Whiting                       0     6
+##  3 Algeria Flounders, halibuts, soles      Common sole                   0    13
+##  4 Algeria Lobsters, spinyrock lobsters    European lobster              0     1
+##  5 Algeria Miscellaneous coastal fishes    Groupers, seaba…              0     6
+##  6 Algeria Miscellaneous coastal fishes    Mullets nei                   0     6
+##  7 Algeria Miscellaneous coastal fishes    Pargo breams nei              0    13
+##  8 Algeria Sharks, rays, chimaeras         Rays, stingrays…              0    13
+##  9 Algeria Squids, cuttlefishes, octopuses Common cuttlefi…              0    13
+## 10 Algeria Squids, cuttlefishes, octopuses Common squids n…              0    13
+## # ℹ 10,434 more rows
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
