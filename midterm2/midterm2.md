@@ -138,8 +138,9 @@ The 10th month of the year (October) has the highest number of incidents
 
 
 ```r
-shark %>% 
+shark_3 <- shark %>% 
   tabyl(county, injury)
+shark_3
 ```
 
 ```

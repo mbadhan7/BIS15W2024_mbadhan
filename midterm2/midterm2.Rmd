@@ -96,8 +96,9 @@ The 10th month of the year (October) has the highest number of incidents
 5. (3 points) How do the number and types of injuries compare by county? Make a table (not a plot) that shows the number of injury types by county. Which county has the highest number of fatalities?  
 
 ```{r}
-shark %>% 
+shark_3 <- shark %>% 
   tabyl(county, injury)
+shark_3
 ```
 
 San Luis Obispo has the highest number of fatalities.

@@ -473,8 +473,9 @@ month. Which month has the highest number of incidents?</li>
 county? Make a table (not a plot) that shows the number of injury types
 by county. Which county has the highest number of fatalities?</li>
 </ol>
-<pre class="r"><code>shark %&gt;% 
-  tabyl(county, injury)</code></pre>
+<pre class="r"><code>shark_3 &lt;- shark %&gt;% 
+  tabyl(county, injury)
+shark_3</code></pre>
 <pre><code>##                county fatal major minor none
 ##             Del Norte     0     0     2    1
 ##              Humboldt     0     7     2    9
