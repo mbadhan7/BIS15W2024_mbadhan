@@ -1,0 +1,81 @@
+---
+title: "2021 Group Project"
+author: "MOHIT BADHAN"
+date: "2024-03-09"
+output: 
+  html_document: 
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library("tidyverse")
+library("janitor")
+library("lubridate")
+```
+
+```{r}
+happy <- read_csv("dataa/2021.csv") %>% clean_names()
+happy
+```
+
+
+### ANY NA's
+
+```{r}
+anyNA(happy)
+```
+
+### Number of countries per region
+
+```{r}
+table(happy$regional_indicator)
+```
+
+Highest
+
+```{r}
+happy %>%
+  select(country_name, ladder_score) %>%
+  arrange(desc(ladder_score))
+```
+
+Lowest
+```{r}
+happy %>%
+  select(country_name, ladder_score) %>%
+  arrange(ladder_score)
+```
+
+Top 5 countries for life expectancy
+```{r}
+happy %>%
+  select(country_name, healthy_life_expectancy) %>%
+  arrange(desc(healthy_life_expectancy))
+```
+
+```{r}
+happy %>% 
+  ggplot(aes(x=regional_indicator, y=freedom_to_make_life_choices))+
+  geom_boxplot()+
+  coord_flip()+
+  scale_y_log10()+
+  labs(title="Observations by Region",
+       x="Region",
+       y="Freedom")
+```
+
+
+
+
+```{r}
+happy %>%
+  select(country_name,logged_gdp_per_capita) %>%
+  arrange(desc(logged_gdp_per_capita))
+```
+
