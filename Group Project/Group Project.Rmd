@@ -21,19 +21,22 @@ library("lubridate")
 
 # Introduction
 
-We will be using data published on Kaggle. The data comes from a spreadsheet with information. The data contains 7 csv files with information on 
+We will be using data published on Kaggle. The data comes from a spreadsheet with information. The data contains 7 csv files from 2015 to 2022 ranking happiness across different regions and countries in the world. 
 
-In our project we will focus on the fish and insect csv files to create a guide to fishing and catching bugs for the game's museum. 
+In our project we will focus on the 2021 csv file.
 
 
-# Animal Crossing: New Horizons
-Animal Crossing: New Horizons is described by Wikipedia as a "social simulation game." Developed and published by Nintendo in 2020, players control a character who moves to a deserted island where they accomplish tasks, build and customize the island, gather and craft items, and create a community of anthropomorphic animals. 
+# The World Happiness Report
+The data is collected by The World Happiness Report which surveys bliss. The report gains worldwide acknowledgment as organizations and governments utilize reports such as this one to influence their policy-making decisions. It is a national average of the responses to the main life evaluation question asked in the Gallup World Poll, which uses the Cantril Ladder.
 
-The fish and insect data that we use in our project are some of the season and progress dependent aspects of the game, meaning that some of the organisms only appear for a limited time of the game's year, and that some of the organisms are only unlocked as the player progresses through the game. 
 
-Fish and insects are organisms that can be caught in the game and sold to the museum that serves as a sort of island archive, for collection and display of all of the player's collectibles.
+The reports survey the state of bliss within the world nowadays and appear how the modern science of bliss clarifies variation between the regions of the world. 
 
-Our project aims to help the player by providing them with a guide to fishing and catching bugs in the game. 
+
+The 2021 data that we use in our project utilize a Happiness score which is explained by GDP per capita, Healthy Life Expectancy, Social Support, Freedom to make life choices, etc. 
+
+
+Our project aims to show the data in a more presentable fashion by including ranges and certain values of countries. 
 
 
 # Cleaning the data
@@ -42,28 +45,21 @@ Our project aims to help the player by providing them with a guide to fishing an
 Janitor work
 
 ## Removing variables: 
-Variables like the game id of the species, game file names, and the color of the species were removed. 
+All variables remained but were not utilized on graphs.
 
 ## Joins 
-The 'fish' and 'insects' data was joined together to create 'museum' data. 
+None of the other csv files were joined with 2021 as the column names were not similar and R was not allowing us to. 
 
-## Seasonality: 
-To work with the varying organisms that can be caught during the different months, (and to account for hemispheres in the game), we cleaned the data so that the catch times were split by hemisphere and organized by hour of the day, by each month.
+## Happiest Country: 
 
-# Animal Crossing Museum Guide App
-Give an example of a fish you want to catch, which hemisphere you are currently in, and determine when you should fish based on the hours by months chart. 
+## Highest GDP:
 
-Which location should you fish in?
-What is the sell price for this fish?
 
 Presentation
 
 ## Graphing
 
 
-# Is there a good place to fish to catch a fish with a high sell price?
-
-Density curve: fish price by location
 
 
 
@@ -82,51 +78,5 @@ Density curve: fish price by location
 
 ## Sources
 
-https://www.kaggle.com/datasets/jessicali9530/animal-crossing-new-horizons-nookplaza-dataset
-
-https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons#
-
-```{r}
-happy <- list.files(path = "data", pattern = ".csv", full.names = T)
-happy
-```
-
-```{r}
-happy_list[1]
-```
-
-
-```{r}
-happy_list <- lapply(happy, read_csv)
-```
-
-```{r}
-happy_all <- bind_rows(happy_list) %>% clean_names()
-happy_all
-```
-
-```{r}
-happy_true <- bind_rows(happy_list) %>% clean_names()
-happy_all
-```
-
-### Number of countries per region
-
-```{r}
-table(happy_all$region)
-```
-# Are there any NAs in the data
-```{r}
-anyNA(happy_all)
-```
-
-```{r}
-happy_all %>%
-  filter(!happiness_score=="NA") %>%
-  summarize(mean_happiness_score=mean(happiness_score), 
-  min_happiness_score=min(happiness_score), 
-  max_happiness_score=max(happiness_score), 
-  sd_happiness_scorg=sd(happiness_score), 
-  total=n())
-```
+https://www.kaggle.com/datasets/mathurinache/world-happiness-report/data?select=2021.csv
 

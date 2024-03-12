@@ -36,8 +36,44 @@ anyNA(happy)
 ```{r}
 table(happy$regional_indicator)
 ```
+```{r}
+happy %>%
+  group_by(regional_indicator) %>%
+  summarize(mean_happiness=mean(ladder_score, na.rm=T)) %>%
+  ggplot(aes(x=regional_indicator, fill=mean_happiness))+ 
+  geom_bar(position="dodge")+
+  coord_flip()
+```
 
-Highest
+```{r}
+happy %>%
+  group_by(regional_indicator) %>%
+  summarize(mean_gdp=mean(logged_gdp_per_capita, na.rm=T)) %>%
+  ggplot(aes(x=regional_indicator, y=mean_gdp, fill= mean_gdp))+ 
+  geom_col()+
+  coord_flip()
+```
+
+```{r}
+happy %>%
+  group_by(regional_indicator) %>%
+  summarize(mean_life_expectancy=mean(healthy_life_expectancy, na.rm=T)) %>%
+  ggplot(aes(x=regional_indicator, y=mean_life_expectancy, fill= regional_indicator))+ 
+  geom_col()+
+  coord_flip()
+```
+
+```{r}
+happy %>%
+  group_by(regional_indicator) %>%
+  summarize(mean_support=mean(social_support, na.rm=T)) %>%
+  ggplot(aes(x=regional_indicator, y=mean_support, fill=regional_indicator))+ 
+  geom_col()+
+  coord_flip()
+```
+
+
+Highest Ladder Score 
 
 ```{r}
 happy %>%
@@ -45,7 +81,8 @@ happy %>%
   arrange(desc(ladder_score))
 ```
 
-Lowest
+Lowest Ladder Score 
+
 ```{r}
 happy %>%
   select(country_name, ladder_score) %>%
@@ -53,11 +90,14 @@ happy %>%
 ```
 
 Top 5 countries for life expectancy
+
 ```{r}
 happy %>%
   select(country_name, healthy_life_expectancy) %>%
   arrange(desc(healthy_life_expectancy))
 ```
+
+Range of Freedom to Make Life Choices by Region
 
 ```{r}
 happy %>% 
@@ -71,11 +111,41 @@ happy %>%
 ```
 
 
-
-
 ```{r}
 happy %>%
   select(country_name,logged_gdp_per_capita) %>%
   arrange(desc(logged_gdp_per_capita))
 ```
+
+```{r}
+happy %>%
+  filter(!ladder_score=="NA") %>%
+  summarize(mean_happiness_score=mean(logged_gdp_per_capita), 
+  min_happiness_score=min(logged_gdp_per_capita), 
+  max_happiness_score=max(logged_gdp_per_capita), 
+  total=n())
+```
+
+```{r}
+happy %>%
+  filter(country_name=="Finland") %>%
+  select(ladder_score, logged_gdp_per_capita, healthy_life_expectancy, social_support)
+```
+
+```{r}
+happy %>%
+  filter(country_name=="Afghanistan") %>%
+  select(ladder_score, logged_gdp_per_capita, healthy_life_expectancy, social_support) 
+```
+
+```{r}
+happy %>%
+  filter(country_name=="United States") %>%
+  select(ladder_score, logged_gdp_per_capita, healthy_life_expectancy, social_support) 
+```
+
+
+
+
+
 
