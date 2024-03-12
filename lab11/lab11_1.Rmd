@@ -68,7 +68,6 @@ Remember that ggplot build plots in layers. These layers can significantly impro
 life_history %>%
   group_by(order) %>%
   summarize(mean_mass=mean(mass, na.rm=T)) %>%
-  ]]
   ggplot(aes(x=order, y=mean_mass))+ 
   geom_col()+
   coord_flip()

@@ -16,7 +16,7 @@ library("janitor")
 library("lubridate")
 ```
 
-# BIS15W24
+# BIS15W24 Mohit & Tian
 
 
 # Introduction
@@ -50,9 +50,9 @@ All variables remained but were not utilized on graphs.
 ## Joins 
 None of the other csv files were joined with 2021 as the column names were not similar and R was not allowing us to. 
 
-## Happiest Country: 
+## Happiest Country: Finland
 
-## Highest GDP:
+## Highest GDP region: 
 
 
 Presentation
