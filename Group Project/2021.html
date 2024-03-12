@@ -411,14 +411,22 @@ were not similar and R was not allowing us to.</p>
 <h2>Sources</h2>
 <p><a href="https://www.kaggle.com/datasets/mathurinache/world-happiness-report/data?select=2021.csv" class="uri">https://www.kaggle.com/datasets/mathurinache/world-happiness-report/data?select=2021.csv</a></p>
 <p>Presentation</p>
+<pre class="r"><code>library(&quot;dplyr&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.4
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-## ✔ purrr     1.0.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✔ forcats   1.0.0     ✔ readr     2.1.4
+## ✔ ggplot2   3.4.4     ✔ stringr   1.5.1
+## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
+## ✔ purrr     1.0.2     ✔ tidyr     1.3.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
@@ -429,7 +437,16 @@ were not similar and R was not allowing us to.</p>
 ## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     chisq.test, fisher.test</code></pre>
-<pre class="r"><code>library(&quot;lubridate&quot;)</code></pre>
+<pre class="r"><code>library(&quot;naniar&quot;)
+library(&quot;ggplot2&quot;)
+library(&quot;shiny&quot;)
+library(&quot;shinydashboard&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;shinydashboard&#39;
+## 
+## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     box</code></pre>
 <pre class="r"><code>happy &lt;- read_csv(&quot;dataa/2021.csv&quot;) %&gt;% clean_names()</code></pre>
 <pre><code>## Rows: 149 Columns: 20
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -667,6 +684,57 @@ used to assess the countries happiness based off of their ladder score,
 for instance the U.S. has a higher logged GDP per capita but ranks lower
 than Finland in the ladder score, life expectancy, and social
 support!</p>
+<p>#UI as scatter plot of all comparable variable by region.</p>
+<pre class="r"><code>library(shiny)
+
+ui &lt;- fluidPage(
+  selectInput(&quot;x&quot;, &quot;Select X Variable&quot;, choices = c(&quot;regional_indicator&quot;, &quot;ladder_score&quot;, &quot;logged_gdp_per_capita&quot;, &quot;social_support&quot;, &quot;healthy_life_expectancy&quot;, &quot;freedom_to_make_life_choices&quot;), selected = &quot;ladder_score&quot;),
+  
+  selectInput(&quot;y&quot;, &quot;Select Y Variable&quot;, choices = c(&quot;regional_indicator&quot;, &quot;ladder_score&quot;, &quot;logged_gdp_per_capita&quot;, &quot;social_support&quot;, &quot;healthy_life_expectancy&quot;, &quot;freedom_to_make_life_choices&quot;), selected = &quot;ladder_score&quot;),
+  
+  plotOutput(&quot;plot&quot;)
+)
+
+server &lt;- function(input, output) {
+  output$plot &lt;- renderPlot({
+    
+    ggplot(data=happy, aes_string(x=input$x, y=input$y, color=&quot;country_name&quot;))+
+      geom_point()+
+      theme(axis.text.x = element_text(angle = 30, hjust = 1))+
+      geom_smooth(method=lm, se=F, na.rm = T)+
+      theme_light(base_size=18)
+  
+})
+}
+
+shinyApp(ui, server)</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+<p>#UI of each variable selected by all Central and Eastern Europe,
+Western Europe, and North America and ANZ countries.</p>
+<pre class="r"><code>new_happy &lt;- happy %&gt;% 
+  filter(regional_indicator == &quot;Central and Eastern Europe&quot; | regional_indicator==&quot;Western Europe&quot; | regional_indicator==&quot;North America and ANZ&quot;)</code></pre>
+<pre class="r"><code>library(shiny)
+
+ui &lt;- fluidPage(
+  
+  radioButtons(&quot;x&quot;, &quot;Select Fill Variable&quot;, choices=c(&quot;ladder_score&quot;, &quot;logged_gdp_per_capita&quot;, &quot;social_support&quot;, &quot;healthy_life_expectancy&quot;, &quot;freedom_to_make_life_choices&quot;),
+               selected=&quot;ladder_score&quot;),
+  
+  plotOutput(&quot;plot&quot;)
+)
+
+server &lt;- function(input, output, session) {
+  output$plot &lt;- renderPlot({
+    
+    ggplot(data=new_happy, aes_string(x=&quot;country_name&quot;, y=input$x, fill=&quot;regional_indicator&quot;))+
+      geom_col(alpha=0.8, color=&quot;black&quot;)+
+      theme(axis.text.x = element_text(angle = 30, hjust = 1))+
+      labs(x=NULL, y=NULL, fill=&quot;Country&quot;)
+})
+}
+
+shinyApp(ui, server)</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 </div>
 </div>
 </div>
