@@ -36,42 +36,61 @@ anyNA(happy)
 ```{r}
 table(happy$regional_indicator)
 ```
+Total of 149 countries with 10 regions!
+
+
 ```{r}
 happy %>%
   group_by(regional_indicator) %>%
   summarize(mean_happiness=mean(ladder_score, na.rm=T)) %>%
-  ggplot(aes(x=regional_indicator, fill=mean_happiness))+ 
-  geom_bar(position="dodge")+
+  ggplot(aes(x=regional_indicator, y=mean_happiness, fill=regional_indicator))+ 
+  geom_col()+
   coord_flip()
 ```
+
+Western Europe, North America and ANZ, and Central and Eastern Europe rank the highest in ladder scores (happiness)!
+
+Sub-Saharan Africa, South Asia, and Middle East and North Africa rank the lowest in ladder scores (happiness)!
 
 ```{r}
 happy %>%
   group_by(regional_indicator) %>%
   summarize(mean_gdp=mean(logged_gdp_per_capita, na.rm=T)) %>%
-  ggplot(aes(x=regional_indicator, y=mean_gdp, fill= mean_gdp))+ 
+  ggplot(aes(x=regional_indicator, y=mean_gdp, fill=regional_indicator))+ 
   geom_col()+
   coord_flip()
 ```
+
+Western Europe, North America and ANZ, and East Asia rank the highest in logged GDP per capita (economy)!
+
+Sub-Saharan Africa, South Asia, and Latin America and Carribean rank the lowest in logged GDP per capita (economy)!
 
 ```{r}
 happy %>%
   group_by(regional_indicator) %>%
   summarize(mean_life_expectancy=mean(healthy_life_expectancy, na.rm=T)) %>%
-  ggplot(aes(x=regional_indicator, y=mean_life_expectancy, fill= regional_indicator))+ 
+  ggplot(aes(x=regional_indicator, y=mean_life_expectancy, fill=regional_indicator))+ 
   geom_col()+
   coord_flip()
 ```
+
+Western Europe, North America and ANZ, and East Asia rank the highest in mean healthy life expectancy!
+
+Sub-Saharan Africa, South Asia, and Commonwealth of Independent States rank the lowest in mean healthy life expectancy!
+
 
 ```{r}
 happy %>%
   group_by(regional_indicator) %>%
-  summarize(mean_support=mean(social_support, na.rm=T)) %>%
-  ggplot(aes(x=regional_indicator, y=mean_support, fill=regional_indicator))+ 
+  summarize(mean_socialsupport=mean(social_support, na.rm=T)) %>%
+  ggplot(aes(x=regional_indicator, y=mean_socialsupport, fill=regional_indicator))+ 
   geom_col()+
   coord_flip()
 ```
 
+Western Europe, North America and ANZ, and Central and Eastern Europe rank the highest in mean social support!
+
+Sub-Saharan Africa, South Asia, and Middle East and North Africa rank the lowest in mean  mean social support!
 
 Highest Ladder Score 
 
@@ -89,7 +108,7 @@ happy %>%
   arrange(ladder_score)
 ```
 
-Top 5 countries for life expectancy
+Top 5 Countries for Life Expectancy
 
 ```{r}
 happy %>%
@@ -97,33 +116,42 @@ happy %>%
   arrange(desc(healthy_life_expectancy))
 ```
 
+Lowest 5 Countries for Life Expectancy
+
+```{r}
+happy %>%
+  select(country_name, healthy_life_expectancy) %>%
+  arrange(healthy_life_expectancy)
+```
+
+
+Highest/Lowest 5 Countries for logged_gdp_per_capita
+
+```{r}
+happy %>%
+  select(country_name, logged_gdp_per_capita) %>%
+  arrange(desc(logged_gdp_per_capita))
+```
+
+```{r}
+happy %>%
+  select(country_name,logged_gdp_per_capita) %>%
+  arrange((logged_gdp_per_capita))
+```
+
+
+
 Range of Freedom to Make Life Choices by Region
 
 ```{r}
 happy %>% 
-  ggplot(aes(x=regional_indicator, y=freedom_to_make_life_choices))+
+  ggplot(aes(x=regional_indicator, y=freedom_to_make_life_choices, fill=regional_indicator))+
   geom_boxplot()+
   coord_flip()+
   scale_y_log10()+
   labs(title="Observations by Region",
        x="Region",
        y="Freedom")
-```
-
-
-```{r}
-happy %>%
-  select(country_name,logged_gdp_per_capita) %>%
-  arrange(desc(logged_gdp_per_capita))
-```
-
-```{r}
-happy %>%
-  filter(!ladder_score=="NA") %>%
-  summarize(mean_happiness_score=mean(logged_gdp_per_capita), 
-  min_happiness_score=min(logged_gdp_per_capita), 
-  max_happiness_score=max(logged_gdp_per_capita), 
-  total=n())
 ```
 
 ```{r}
@@ -134,15 +162,20 @@ happy %>%
 
 ```{r}
 happy %>%
+  filter(country_name=="United States") %>%
+  select(ladder_score, logged_gdp_per_capita, healthy_life_expectancy, social_support) 
+```
+
+
+
+```{r}
+happy %>%
   filter(country_name=="Afghanistan") %>%
   select(ladder_score, logged_gdp_per_capita, healthy_life_expectancy, social_support) 
 ```
 
-```{r}
-happy %>%
-  filter(country_name=="United States") %>%
-  select(ladder_score, logged_gdp_per_capita, healthy_life_expectancy, social_support) 
-```
+
+These data sets are used to show that not one individual variable is used to assess the countries happiness based off of their ladder score, for instance the U.S. has a higher logged GDP per capita but ranks lower than Finland in the ladder score, life expectancy, and social support! 
 
 
 
